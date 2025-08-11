@@ -10,7 +10,8 @@
         "dl"
       ],
       "injection-regex": "^dlitescript$",
-      "class-name": "TreeSitterDlitescript"
+      "class-name": "TreeSitterDlitescript",
+      "highlights": "queries/highlights.scm"
     }
   ],
   "metadata": {
