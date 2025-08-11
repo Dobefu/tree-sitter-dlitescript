@@ -1,0 +1,39 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "dlitescript",
+      "camelcase": "Dlitescript",
+      "title": "DLiteScript",
+      "scope": "source.dlitescript",
+      "file-types": [
+        "dl"
+      ],
+      "injection-regex": "^dlitescript$",
+      "class-name": "TreeSitterDlitescript"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "A delightfully simple scripting language",
+    "authors": [
+      {
+        "name": "Connor van Spronssen",
+        "url": "https://cv.connor.nl/"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/Dobefu/tree-sitter-dlitescript"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}
