@@ -389,11 +389,15 @@
             "members": [
               {
                 "type": "PATTERN",
-                "value": "[^\"\\\\]"
+                "value": "[^\"\\\\%]"
               },
               {
                 "type": "SYMBOL",
                 "name": "escape_sequence"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "format_specifier"
               }
             ]
           }
@@ -407,6 +411,23 @@
     "escape_sequence": {
       "type": "PATTERN",
       "value": "\\\\."
+    },
+    "format_specifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "%%"
+        },
+        {
+          "type": "STRING",
+          "value": "%s"
+        },
+        {
+          "type": "STRING",
+          "value": "%g"
+        }
+      ]
     }
   },
   "extras": [

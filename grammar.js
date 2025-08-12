@@ -16,9 +16,16 @@ module.exports = grammar({
   ],
 
   rules: {
-    source_file: ($) => repeat($._definition),
+    source_file: ($) =>
+      repeat($._definition),
 
-    comment: ($) => token(seq("//", /.*/)),
+    comment: ($) =>
+      token(
+        seq(
+          "//",
+          /.*/,
+        ),
+      ),
 
     _definition: ($) =>
       choice(
@@ -110,13 +117,21 @@ module.exports = grammar({
       seq(
         '"',
         repeat(choice(
-          /[^"\\]/,
+          /[^"\\%]/,
           $.escape_sequence,
+          $.format_specifier,
         )),
         '"',
       ),
 
     escape_sequence: ($) =>
-        /\\./,
+      /\\./,
+
+    format_specifier: ($) =>
+      choice(
+        "%%",
+        "%s",
+        "%g",
+      ),
   },
 });

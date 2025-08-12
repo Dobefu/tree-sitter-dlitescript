@@ -34,6 +34,7 @@
 ; Literals (terminal values)
 (string_literal) @string
 (escape_sequence) @string.escape
+(format_specifier) @string.special
 (number) @number
 
 ; Identifiers

@@ -62,6 +62,11 @@
     }
   },
   {
+    "type": "format_specifier",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "function_call",
     "named": true,
     "fields": {},
@@ -134,6 +139,10 @@
       "types": [
         {
           "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "format_specifier",
           "named": true
         }
       ]
@@ -253,6 +262,18 @@
     "named": false
   },
   {
+    "type": "%%",
+    "named": false
+  },
+  {
+    "type": "%g",
+    "named": false
+  },
+  {
+    "type": "%s",
+    "named": false
+  },
+  {
     "type": "(",
     "named": false
   },
@@ -307,11 +328,11 @@
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "string",
