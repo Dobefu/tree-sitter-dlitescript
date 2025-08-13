@@ -12,12 +12,15 @@
 [
   "var"
   "const"
+  "if"
+  "else"
 ] @keyword
 
 ; Types
 [
   "string"
   "number"
+  "bool"
 ] @type.builtin
 
 ; Operators
@@ -36,6 +39,7 @@
 (escape_sequence) @string.escape
 (format_specifier) @string.special
 (number) @number
+(boolean) @boolean
 
 ; Identifiers
 (identifier) @variable

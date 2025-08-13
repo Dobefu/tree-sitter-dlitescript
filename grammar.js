@@ -32,6 +32,7 @@ module.exports = grammar({
         $.variable_declaration,
         $.variable_assignment,
         $.function_call,
+        $.if_statement,
         $.block,
       ),
 
@@ -58,7 +59,35 @@ module.exports = grammar({
         $.variable_declaration,
         $.variable_assignment,
         $.function_call,
+        $.if_statement,
         $.block,
+      ),
+
+    if_statement: ($) =>
+      seq(
+        "if",
+        $.condition,
+        $.block,
+        repeat(seq(
+          "else",
+          "if",
+          $.condition,
+          $.block,
+        )),
+        optional(seq(
+          "else",
+          $.block,
+        )),
+      ),
+
+    condition: ($) =>
+      choice(
+        $._expression,
+        seq(
+          "(",
+          $._expression,
+          ")",
+        ),
       ),
 
     block: ($) =>
@@ -74,6 +103,7 @@ module.exports = grammar({
         $.identifier,
         $.number,
         $.string_literal,
+        $.boolean,
         $.binary_expression,
         $.unary_expression,
       ),
@@ -105,6 +135,7 @@ module.exports = grammar({
       choice(
         "string",
         "number",
+        "bool",
       ),
 
     identifier: ($) =>
@@ -122,6 +153,12 @@ module.exports = grammar({
           $.format_specifier,
         )),
         '"',
+      ),
+
+    boolean: ($) =>
+      choice(
+        "true",
+        "false",
       ),
 
     escape_sequence: ($) =>
