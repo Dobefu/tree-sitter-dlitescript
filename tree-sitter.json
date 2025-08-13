@@ -6,12 +6,10 @@
       "camelcase": "Dlitescript",
       "title": "DLiteScript",
       "scope": "source.dlitescript",
-      "file-types": [
-        "dl"
-      ],
+      "file-types": ["dl"],
       "injection-regex": "^dlitescript$",
       "class-name": "TreeSitterDlitescript",
-      "highlights": "queries/highlights.scm"
+      "highlights": "queries/dlitescript/highlights.scm"
     }
   ],
   "metadata": {
