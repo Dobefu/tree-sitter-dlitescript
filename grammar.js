@@ -173,6 +173,8 @@ module.exports = grammar({
         "%%",
         "%s",
         "%g",
+        "%t",
+        "%v",
       ),
   },
 });

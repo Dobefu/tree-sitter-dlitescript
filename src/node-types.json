@@ -373,6 +373,14 @@
     "named": false
   },
   {
+    "type": "%t",
+    "named": false
+  },
+  {
+    "type": "%v",
+    "named": false
+  },
+  {
     "type": "&&",
     "named": false
   },

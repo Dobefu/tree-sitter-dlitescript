@@ -656,6 +656,14 @@
         {
           "type": "STRING",
           "value": "%g"
+        },
+        {
+          "type": "STRING",
+          "value": "%t"
+        },
+        {
+          "type": "STRING",
+          "value": "%v"
         }
       ]
     }
