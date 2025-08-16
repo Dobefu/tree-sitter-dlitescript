@@ -33,6 +33,9 @@ module.exports = grammar({
         $.variable_assignment,
         $.function_call,
         $.if_statement,
+        $.for_statement,
+        $.break_statement,
+        $.continue_statement,
         $.block,
       ),
 
@@ -60,6 +63,9 @@ module.exports = grammar({
         $.variable_assignment,
         $.function_call,
         $.if_statement,
+        $.for_statement,
+        $.break_statement,
+        $.continue_statement,
         $.block,
       ),
 
@@ -80,6 +86,21 @@ module.exports = grammar({
         )),
       ),
 
+    for_statement: ($) =>
+      choice(
+        seq("for", $.block),
+        seq("for", $.condition, $.block),
+        seq("for", "var", $.identifier, $.for_var_condition, $.block),
+        seq("for", "var", $.identifier, "from", $._expression, "to", $._expression, $.block),
+        seq("for", "var", $.identifier, "to", $._expression, $.block),
+      ),
+
+    break_statement: ($) =>
+      seq("break", optional($.number)),
+
+    continue_statement: ($) =>
+      seq("continue", optional($.number)),
+
     condition: ($) =>
       choice(
         $._expression,
@@ -88,6 +109,22 @@ module.exports = grammar({
           $._expression,
           ")",
         ),
+      ),
+
+    for_var_condition: ($) =>
+      seq(
+        $._comparison_operator,
+        $._expression,
+      ),
+
+    _comparison_operator: ($) =>
+      choice(
+        "==",
+        "!=",
+        ">",
+        ">=",
+        "<",
+        "<=",
       ),
 
     block: ($) =>
@@ -126,7 +163,7 @@ module.exports = grammar({
         prec.right(800, seq($._expression, "**", $._expression)),
         prec.left(700, seq($._expression, choice("*", "/", "%"), $._expression)),
         prec.left(600, seq($._expression, choice("+", "-"), $._expression)),
-        prec.left(500, seq($._expression, choice("==", "!=", ">", ">=", "<", "<="), $._expression)),
+        prec.left(500, seq($._expression, $._comparison_operator, $._expression)),
         prec.left(400, seq($._expression, "&&", $._expression)),
         prec.left(300, seq($._expression, "||", $._expression)),
         prec.left(10, seq($._expression, "=", $._expression)),

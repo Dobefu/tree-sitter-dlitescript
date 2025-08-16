@@ -14,6 +14,11 @@
   "const"
   "if"
   "else"
+  "for"
+  "break"
+  "continue"
+  "from"
+  "to"
 ] @keyword
 
 ; Types
@@ -52,6 +57,14 @@
 
 ; Identifiers
 (identifier) @variable
+
+; For loops
+(for_statement) @keyword.control.loop
+(for_var_condition) @keyword.control.condition
+
+; Break and continue statements
+(break_statement) @keyword.control.flow
+(continue_statement) @keyword.control.flow
 
 ; Punctuation
 [
