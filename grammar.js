@@ -93,6 +93,8 @@ module.exports = grammar({
         seq("for", "var", $.identifier, $.for_var_condition, $.block),
         seq("for", "var", $.identifier, "from", $._expression, "to", $._expression, $.block),
         seq("for", "var", $.identifier, "to", $._expression, $.block),
+        seq("for", "from", $._expression, "to", $._expression, $.block),
+        seq("for", "to", $._expression, $.block),
       ),
 
     break_statement: ($) =>
