@@ -1,22 +1,24 @@
 ; Comments
 (comment) @comment
 
-; Function calls (high-level constructs)
+; Function calls
 (function_call
-  (identifier) @function.call
-  "(" @punctuation.bracket
-  ")" @punctuation.bracket
-  .)
+  (identifier) @function.call)
+
+; Function definitions
+(func_statement) @function
 
 ; Keywords
 [
   "var"
   "const"
+  "func"
   "if"
   "else"
   "for"
   "break"
   "continue"
+  "return"
   "from"
   "to"
 ] @keyword
@@ -26,6 +28,7 @@
   "string"
   "number"
   "bool"
+  "null"
 ] @type.builtin
 
 ; Operators
@@ -48,6 +51,14 @@
   "!"
 ] @operator
 
+; Format specifiers
+[
+  "%g"
+  "%s"
+  "%t"
+  "%v"
+] @string.special
+
 ; Literals (terminal values)
 (string_literal) @string
 (escape_sequence) @string.escape
@@ -55,21 +66,46 @@
 (number) @number
 (boolean) @boolean
 
-; Identifiers
-(identifier) @variable
+; Literals
+[
+  "true"
+  "false"
+  "null"
+] @boolean
 
-; For loops
-(for_statement) @keyword.control.loop
-(for_var_condition) @keyword.control.condition
+; Expressions
+(unary_expression (identifier) @variable)
+(binary_expression (identifier) @variable)
 
-; Break and continue statements
-(break_statement) @keyword.control.flow
-(continue_statement) @keyword.control.flow
+; Spread
+(spread_expression "..." @operator)
 
-; Punctuation
+; Variable declarations
+(variable_declaration
+  (identifier) @variable)
+
+; Variable assignments
+(variable_assignment
+  (identifier) @variable)
+
+; Control flow statements
+(if_statement) @keyword.conditional
+
+(for_statement) @keyword.repeat
+
+(break_statement) @keyword.return
+
+(continue_statement) @keyword.return
+
+(return_statement) @keyword.return
+
+; Brackets
 [
   "("
   ")"
   "{"
   "}"
 ] @punctuation.bracket
+
+; Delimiters
+"," @punctuation.delimiter
