@@ -168,7 +168,7 @@ module.exports = grammar({
 
     _type: ($) => choice("string", "number", "bool", "null"),
 
-    identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    identifier: ($) => /[a-zA-Z_]\w*/,
 
     number: ($) => /\d+/,
 

@@ -8,4 +8,6 @@ module.exports =
 
 try {
   module.exports.nodeTypeInfo = require("../../src/node-types.json");
-} catch (_) {}
+} catch (e) {
+  console.error(e);
+}
