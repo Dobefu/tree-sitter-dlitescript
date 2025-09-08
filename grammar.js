@@ -13,23 +13,14 @@ module.exports = grammar({
   extras: ($) => [/\s/, $.comment],
 
   rules: {
-    source_file: ($) => repeat($._definition),
+    source_file: ($) => seq(
+      repeat($.import_statement),
+      repeat($._definition)
+    ),
 
     comment: ($) => token(seq("//", /.*/)),
 
-    _definition: ($) =>
-      choice(
-        $.variable_declaration,
-        $.variable_assignment,
-        $.function_call,
-        $.if_statement,
-        $.for_statement,
-        $.break_statement,
-        $.continue_statement,
-        $.return_statement,
-        $.func_statement,
-        $.block,
-      ),
+    import_statement: ($) => seq("import", $.string_literal),
 
     variable_declaration: ($) =>
       seq(
@@ -54,6 +45,8 @@ module.exports = grammar({
         $.func_statement,
         $.block,
       ),
+
+    _definition: ($) => $._statement,
 
     if_statement: ($) =>
       seq(
@@ -114,6 +107,7 @@ module.exports = grammar({
             seq("(", repeat(seq($._type, optional(","))), ")"),
           ),
         ),
+        $.block,
       ),
 
     condition: ($) => choice($._expression, seq("(", $._expression, ")")),
@@ -138,11 +132,14 @@ module.exports = grammar({
 
     function_call: ($) =>
       seq(
-        $.identifier,
+        choice($.identifier, $.namespaced_identifier),
         "(",
         optional(seq($._expression, repeat(seq(",", $._expression)))),
         ")",
       ),
+
+    namespaced_identifier: ($) =>
+      seq($.identifier, ".", $.identifier),
 
     binary_expression: ($) =>
       choice(
