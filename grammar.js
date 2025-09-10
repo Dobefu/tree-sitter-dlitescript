@@ -29,10 +29,18 @@ module.exports = grammar({
 
     variable_assignment: ($) => seq($.identifier, "=", $._expression),
 
+    shorthand_assignment: ($) =>
+      seq(
+        $.identifier,
+        choice("+=", "-=", "*=", "/=", "%=", "**="),
+        $._expression,
+      ),
+
     _statement: ($) =>
       choice(
         $.variable_declaration,
         $.variable_assignment,
+        $.shorthand_assignment,
         $.function_call,
         $.if_statement,
         $.for_statement,
