@@ -154,7 +154,14 @@ module.exports = grammar({
         ),
         prec.left(300, seq($._expression, "&&", $._expression)),
         prec.left(200, seq($._expression, "||", $._expression)),
-        prec.left(10, seq($._expression, "=", $._expression)),
+        prec.left(
+          10,
+          seq(
+            $._expression,
+            choice("=", "+=", "-=", "*=", "/=", "%=", "**="),
+            $._expression,
+          ),
+        ),
       ),
 
     unary_expression: ($) =>
