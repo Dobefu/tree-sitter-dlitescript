@@ -31,6 +31,9 @@
   "null"
 ] @type.builtin
 
+; Array types
+(array_type) @type.builtin
+
 ; Operators
 [
   "="
@@ -66,6 +69,9 @@
 (number) @number
 (boolean) @boolean
 
+; Array literals
+(array_literal) @punctuation.bracket
+
 ; Literals
 [
   "true"
@@ -79,6 +85,10 @@
 
 ; Spread
 (spread_expression "..." @operator)
+
+; Array indexing
+(index_expression) @punctuation.bracket
+(slice_expression) @punctuation.bracket
 
 ; Variable declarations
 (variable_declaration
@@ -105,6 +115,8 @@
   ")"
   "{"
   "}"
+  "["
+  "]"
 ] @punctuation.bracket
 
 ; Delimiters

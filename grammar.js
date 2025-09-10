@@ -13,10 +13,7 @@ module.exports = grammar({
   extras: ($) => [/\s/, $.comment],
 
   rules: {
-    source_file: ($) => seq(
-      repeat($.import_statement),
-      repeat($._definition)
-    ),
+    source_file: ($) => seq(repeat($.import_statement), repeat($._definition)),
 
     comment: ($) => token(seq("//", /.*/)),
 
@@ -128,6 +125,9 @@ module.exports = grammar({
         $.binary_expression,
         $.unary_expression,
         $.spread_expression,
+        $.array_literal,
+        $.index_expression,
+        $.slice_expression,
       ),
 
     function_call: ($) =>
@@ -138,32 +138,56 @@ module.exports = grammar({
         ")",
       ),
 
-    namespaced_identifier: ($) =>
-      seq($.identifier, ".", $.identifier),
+    namespaced_identifier: ($) => seq($.identifier, ".", $.identifier),
 
     binary_expression: ($) =>
       choice(
-        prec.right(800, seq($._expression, "**", $._expression)),
+        prec.right(700, seq($._expression, "**", $._expression)),
         prec.left(
-          700,
+          600,
           seq($._expression, choice("*", "/", "%"), $._expression),
         ),
-        prec.left(600, seq($._expression, choice("+", "-"), $._expression)),
+        prec.left(500, seq($._expression, choice("+", "-"), $._expression)),
         prec.left(
-          500,
+          400,
           seq($._expression, $._comparison_operator, $._expression),
         ),
-        prec.left(400, seq($._expression, "&&", $._expression)),
-        prec.left(300, seq($._expression, "||", $._expression)),
+        prec.left(300, seq($._expression, "&&", $._expression)),
+        prec.left(200, seq($._expression, "||", $._expression)),
         prec.left(10, seq($._expression, "=", $._expression)),
       ),
 
     unary_expression: ($) =>
       prec(900, seq(choice("+", "-", "!"), $._expression)),
 
-    spread_expression: ($) => seq("...", $._expression),
+    spread_expression: ($) => prec(900, seq("...", $._expression)),
 
-    _type: ($) => choice("string", "number", "bool", "null"),
+    array_literal: ($) =>
+      seq(
+        "[",
+        optional(seq($._expression, repeat(seq(",", $._expression)))),
+        "]",
+      ),
+
+    index_expression: ($) =>
+      prec(800, seq($._expression, "[", $._expression, "]")),
+
+    slice_expression: ($) =>
+      prec(
+        800,
+        seq(
+          $._expression,
+          "[",
+          optional($._expression),
+          ":",
+          optional($._expression),
+          "]",
+        ),
+      ),
+
+    _type: ($) => choice("string", "number", "bool", $.array_type, "null"),
+
+    array_type: ($) => seq("[", "]", choice("string", "number", "bool")),
 
     identifier: ($) => /[a-zA-Z_]\w*/,
 
@@ -180,6 +204,6 @@ module.exports = grammar({
 
     escape_sequence: ($) => /\\./,
 
-    format_specifier: ($) => choice("%%", "%s", "%g", "%t", "%v"),
+    format_specifier: ($) => choice("%%", "%s", "%g", "%t", "%v", "%d"),
   },
 });
