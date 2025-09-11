@@ -1287,6 +1287,10 @@
           "value": "bool"
         },
         {
+          "type": "STRING",
+          "value": "any"
+        },
+        {
           "type": "SYMBOL",
           "name": "array_type"
         },
@@ -1321,6 +1325,10 @@
             {
               "type": "STRING",
               "value": "bool"
+            },
+            {
+              "type": "STRING",
+              "value": "any"
             }
           ]
         }

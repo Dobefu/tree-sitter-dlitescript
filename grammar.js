@@ -200,9 +200,10 @@ module.exports = grammar({
         ),
       ),
 
-    _type: ($) => choice("string", "number", "bool", $.array_type, "null"),
+    _type: ($) =>
+      choice("string", "number", "bool", "any", $.array_type, "null"),
 
-    array_type: ($) => seq("[", "]", choice("string", "number", "bool")),
+    array_type: ($) => seq("[", "]", choice("string", "number", "bool", "any")),
 
     identifier: ($) => /[a-zA-Z_]\w*/,
 
