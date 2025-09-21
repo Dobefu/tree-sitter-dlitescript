@@ -17,7 +17,8 @@ module.exports = grammar({
 
     comment: ($) => token(seq("//", /.*/)),
 
-    import_statement: ($) => seq("import", $.string_literal),
+    import_statement: ($) =>
+      seq("import", $.string_literal, optional(seq("as", $.identifier))),
 
     variable_declaration: ($) =>
       seq(
