@@ -21,6 +21,8 @@
   "return"
   "from"
   "to"
+  "import"
+  "as"
 ] @keyword
 
 ; Types
@@ -127,3 +129,8 @@
 
 ; Delimiters
 "," @punctuation.delimiter
+
+; Import statements
+(import_statement) @keyword.import
+(import_statement (string_literal) @string)
+(import_statement (identifier) @variable)
