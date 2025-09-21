@@ -115,7 +115,7 @@ module.exports = grammar({
         $.block,
       ),
 
-    condition: ($) => choice($._expression, seq("(", $._expression, ")")),
+    condition: ($) => $._expression,
 
     for_var_condition: ($) => seq($._comparison_operator, $._expression),
 
@@ -136,6 +136,7 @@ module.exports = grammar({
         $.array_literal,
         $.index_expression,
         $.slice_expression,
+        seq("(", $._expression, ")"),
       ),
 
     function_call: ($) =>
@@ -200,10 +201,10 @@ module.exports = grammar({
         ),
       ),
 
+    array_type: ($) => seq("[", "]", choice("string", "number", "bool", "any")),
+
     _type: ($) =>
       choice("string", "number", "bool", "any", $.array_type, "null"),
-
-    array_type: ($) => seq("[", "]", choice("string", "number", "bool", "any")),
 
     identifier: ($) => /[a-zA-Z_]\w*/,
 
